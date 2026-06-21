@@ -3,6 +3,9 @@ Master Indonesian — Free, Structured, Global High-quality BIPA lessons, videos
 
 # Structured Courses — Beginner to Advanced
 - Follow our curated course paths with lessons, exercises and checkpoints.
+
+
+
 Beginner A
 Foundational vocabulary and simple grammar to start speaking everyday Indonesian.
 
