@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndoBeyondBorders - Learn Indonesian Free</title>
+    <meta name="description" content="IndoBeyondBorders — Free Indonesian (BIPA) courses, videos, slides and quizzes. Learn anywhere.">
+    <meta property="og:title" content="IndoBeyondBorders — Learn Indonesian for Free" />
+    <meta property="og:description" content="Free Indonesian language courses (BIPA). Interactive lessons, videos, and downloadable resources." />
+    <meta property="og:image" content="assets/image.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <header>
+        <div class="site-max topbar">
+            <div class="brand">
+                <div class="logo-wrap"><img src="assets/image.png" alt="IndoBeyondBorders logo"></div>
+                <div>
+                    <div style="font-weight:700; font-size:1.1rem">IndoBeyondBorders</div>
+                    <div class="brand-sub">Free BIPA courses for students</div>
+                </div>
+            </div>
+            <div class="actions">
+                <nav class="nav">
+                    <a href="home.html" class="active">Home</a>
+                    <a href="courses.html">Courses</a>
+                    <a href="materials.html">Materials</a>
+                </nav>
+                <div style="display:flex;align-items:center;gap:12px">
+                    <span id="userDisplay" class="user-display" aria-hidden="true"></span>
+                    <a href="#loginModal" id="loginBtn" class="btn">Sign in</a>
+                    <button id="logoutBtn" class="btn" style="display:none">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="site-max">
+        <section class="hero">
+                <div style="padding:28px; max-width:900px; margin:0 auto; text-align:center">
+                    <div class="hero-banner">
+                        <div class="title">Master Indonesian — Free, Structured, Global</div>
+                        <span class="subtitle">High-quality BIPA lessons, videos, slides and quizzes suitable for students and classrooms.</span>
+                    </div>
+                    <div style="margin-top:18px"><a href="courses.html" class="btn">Explore Courses</a></div>
+                </div>
+        </section>
+
+        <section id="features" style="margin-top:22px">
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Slides</h3>
+                    <p>Downloadable slide decks with summaries and exercises for classroom use.</p>
+                </div>
+                <div class="card">
+                    <h3>Videos</h3>
+                    <p>Short lessons with captions and timestamps for flexible learning.</p>
+                </div>
+                <div class="card">
+                    <h3>Quizzes</h3>
+                    <p>Auto-graded quizzes with explanations to reinforce learning.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="site-max">&copy; 2026 IndoBeyondBorders — All rights reserved.</div>
+    </footer>
+
+    <div id="loginModal" class="modal-overlay" role="dialog" aria-hidden="true" aria-labelledby="loginTitle">
+        <div class="modal" role="document">
+            <h3 id="loginTitle">Sign in to IndoBeyondBorders</h3>
+            <form id="loginForm" class="form-row" method="post" action="#">
+                <input id="loginName" name="name" type="text" placeholder="Full name" required />
+                <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px">
+                    <a href="#" id="loginCancel" class="btn secondary">Cancel</a>
+                    <button type="submit" id="loginSubmit" class="btn">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+        <script>
+        (function(){
+            function updateAuthUI(){
+                var user = localStorage.getItem('ibb_user');
+                var userDisplay = document.getElementById('userDisplay');
+                var loginBtn = document.getElementById('loginBtn');
+                var logoutBtn = document.getElementById('logoutBtn');
+                if(user){
+                    document.body.classList.add('signed-in');
+                    if(userDisplay) userDisplay.textContent = 'Hi, ' + user;
+                    if(loginBtn) loginBtn.style.display = 'none';
+                    if(logoutBtn) logoutBtn.style.display = 'inline-block';
+                    document.querySelectorAll('a[data-auth="true"]').forEach(function(a){a.classList.remove('disabled')});
+                } else {
+                    document.body.classList.remove('signed-in');
+                    if(userDisplay) userDisplay.textContent = '';
+                    if(loginBtn) loginBtn.style.display = 'inline-block';
+                    if(logoutBtn) logoutBtn.style.display = 'none';
+                    document.querySelectorAll('a[data-auth="true"]').forEach(function(a){a.classList.add('disabled')});
+                }
+            }
+            document.addEventListener('DOMContentLoaded', function(){
+                updateAuthUI();
+                var loginForm = document.getElementById('loginForm');
+                var loginName = document.getElementById('loginName');
+                var logoutBtn = document.getElementById('logoutBtn');
+                if(loginForm){
+                    loginForm.addEventListener('submit', function(e){
+                        e.preventDefault();
+                        var name = loginName && loginName.value && loginName.value.trim();
+                        if(name){
+                            localStorage.setItem('ibb_user', name);
+                            updateAuthUI();
+                            history.replaceState('', document.title, window.location.pathname + window.location.search);
+                        }
+                    });
+                }
+                if(logoutBtn){
+                    logoutBtn.addEventListener('click', function(){localStorage.removeItem('ibb_user'); updateAuthUI();});
+                }
+            });
+        })();
+        </script>
+</body>
+</html>
